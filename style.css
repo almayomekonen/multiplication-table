@@ -82,6 +82,34 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.2s forwards;
+  max-width: 200px; /* Make sure the tooltip doesn't overflow */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styles */
 @media screen and (max-width: 600px) {
   h1 {
     font-size: 2.5rem;
@@ -104,7 +132,7 @@ button:hover {
   table th,
   table td {
     padding: 11px;
-    font-size: 0.9rem;
+    font-size: 0.1rem;
   }
 
   table td:active {
@@ -122,29 +150,10 @@ button:hover {
     background-color: #ff4500 !important;
     color: #fff !important;
   }
-}
 
-.tooltip {
-  position: absolute;
-  background-color: #333;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0;
-  animation: fadeIn 0.2s forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .tooltip {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    max-width: 150px;
   }
 }
