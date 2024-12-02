@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const table = document.createElement("table");
 
+  // יצירת טבלה
   for (let i = 0; i <= 10; i++) {
     const row = document.createElement("tr");
 
@@ -23,6 +24,24 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.textContent = i * j;
         cell.dataset.row = i;
         cell.dataset.column = j;
+
+        cell.addEventListener("mouseenter", (event) => {
+          const tooltip = document.createElement("div");
+          tooltip.className = "tooltip";
+          tooltip.textContent = `שורה: ${i}, עמודה: ${j}, מכפלה: ${i * j}`;
+          document.body.appendChild(tooltip);
+
+          const rect = event.target.getBoundingClientRect();
+          tooltip.style.left = `${rect.left + window.pageXOffset}px`;
+          tooltip.style.top = `${
+            rect.top + window.pageYOffset - tooltip.offsetHeight - 5
+          }px`;
+        });
+
+        cell.addEventListener("mouseleave", () => {
+          const tooltip = document.querySelector(".tooltip");
+          if (tooltip) tooltip.remove();
+        });
       }
 
       row.appendChild(cell);
@@ -39,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedCol = null;
   let selectedRow = null;
 
+  // הוספת אירועים לכותרות עמודות ושורות
   headerCols.forEach((column) => {
     column.addEventListener("click", () => {
       selectedCol = parseInt(column.dataset.column, 10);
@@ -53,6 +73,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // לחצן לאיפוס הדגשות
+  const resetButton = document.getElementById("reset-button");
+  resetButton.addEventListener("click", () => {
+    cells.forEach((cell) => cell.classList.remove("highlight"));
+    selectedCol = null;
+    selectedRow = null;
+  });
+
+  // לחצן לבחירה אקראית
+  const randomButton = document.getElementById("random-button");
+  randomButton.addEventListener("click", () => {
+    const randomRow = Math.floor(Math.random() * 10) + 1;
+    const randomCol = Math.floor(Math.random() * 10) + 1;
+
+    selectedRow = randomRow;
+    selectedCol = randomCol;
+    highlightCell(selectedRow, selectedCol);
+  });
+
+  // פונקציה להדגשה
   function highlightCell(row, col) {
     cells.forEach((cell) => cell.classList.remove("highlight"));
 
